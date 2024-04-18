@@ -1,9 +1,5 @@
 const Home = () => {
-  return (
-    <div>
-      <div>Reforged</div>
-    </div>
-  );
+  return <div className="container mx-auto">Reforged</div>;
 };
 
 export default Home;
