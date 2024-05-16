@@ -26,6 +26,18 @@ const Navbar = () => {
             Forum
           </Link>
           <Link
+            href="/map"
+            className="font-sans text-base font-medium text-black"
+          >
+            Map
+          </Link>
+          <Link
+            href="/leaderboard"
+            className="font-sans text-base font-medium text-black"
+          >
+            Leaderboard
+          </Link>
+          <Link
             href="/stats"
             className="font-sans text-base font-medium text-black"
           >
