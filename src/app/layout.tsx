@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const metadata: Metadata = {
-  title: "Reforged by Arknesia",
+  title: "Reforged",
   description: "Minecraft Server Indonesia",
 };
 

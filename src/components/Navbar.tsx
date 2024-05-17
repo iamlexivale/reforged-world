@@ -8,7 +8,7 @@ const Navbar = () => {
       <div className="container mx-auto">
         <div className="flex flex-col items-center space-y-4 py-4">
           <div className="font-sans text-2xl font-medium text-black">
-            Reforged
+            Reforged World
           </div>
           <div className="my-auto flex flex-row space-x-4">
             <Link
@@ -18,16 +18,16 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              href="/store"
+              href="/support"
               className="font-sans text-base font-medium text-black"
             >
-              Store
+              Support
             </Link>
             <Link
-              href="/map"
+              href="/maps"
               className="font-sans text-base font-medium text-black"
             >
-              Map
+              Maps
             </Link>
             <Link
               href="/leaderboard"
@@ -36,10 +36,10 @@ const Navbar = () => {
               Leaderboard
             </Link>
             <Link
-              href="/stats"
+              href="/player"
               className="font-sans text-base font-medium text-black"
             >
-              Stats
+              Player
             </Link>
           </div>
         </div>
