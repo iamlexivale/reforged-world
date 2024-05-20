@@ -18,12 +18,6 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              href="/support"
-              className="font-sans text-base font-medium text-black"
-            >
-              Support
-            </Link>
-            <Link
               href="/maps"
               className="font-sans text-base font-medium text-black"
             >
