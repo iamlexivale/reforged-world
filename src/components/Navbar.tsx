@@ -18,12 +18,6 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              href="/maps"
-              className="font-sans text-base font-medium text-black"
-            >
-              Maps
-            </Link>
-            <Link
               href="/leaderboard"
               className="font-sans text-base font-medium text-black"
             >
@@ -34,6 +28,12 @@ const Navbar = () => {
               className="font-sans text-base font-medium text-black"
             >
               Player
+            </Link>
+            <Link
+              href="/guild"
+              className="font-sans text-base font-medium text-black"
+            >
+              Guild
             </Link>
           </div>
         </div>
