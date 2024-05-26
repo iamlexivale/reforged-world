@@ -1,6 +1,6 @@
 {
   "name": "reforged",
-  "version": "1.7-1",
+  "version": "1.7-2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -12,6 +12,7 @@
     "@vercel/analytics": "^1.2.2",
     "@vercel/speed-insights": "^1.0.10",
     "axios": "^1.6.8",
+    "dayjs": "^1.11.11",
     "next": "^14.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

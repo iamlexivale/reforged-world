@@ -15,8 +15,8 @@ interface Props {
 }
 
 export const metadata: Metadata = {
-  title: "Reforged",
-  description: "Minecraft Server Indonesia",
+  title: "Reforged by Arknesia",
+  description: "Where Every Block Tells a Story",
 };
 
 export default function RootLayout({ children }: Props) {
