@@ -2,6 +2,10 @@
 
 import useSWR from "swr";
 import axios from "axios";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 
@@ -36,17 +40,20 @@ const Page = () => {
         </div>
         <div className="w-96 space-y-2">
           {modifiedData?.players.map((data: any, index: any) => (
-            <div key={index} className="border">
-              <div className="font-sans text-xl font-bold text-black">
+            <div
+              key={index}
+              className="flex flex-row justify-between rounded border border-neutral-200 px-4 py-1 hover:cursor-pointer hover:border-neutral-400"
+            >
+              <div className="font-sans text-lg font-bold text-black">
                 {data.username}
               </div>
-              {/* <div>{data.uuid}</div> */}
               <div>
-                {data.profiles && Object.keys(data.profiles).length > 0
-                  ? Object.entries(data.profiles).map(([key, profile]: any) => (
-                      <div key={key}>{profile.name}</div>
-                    ))
-                  : null}
+                <div className="text-right font-sans text-sm font-light text-neutral-400">
+                  Last Login
+                </div>
+                <div className="text-right font-sans text-sm font-normal text-black">
+                  {dayjs(data.lastlogin).fromNow()}
+                </div>
               </div>
             </div>
           ))}
