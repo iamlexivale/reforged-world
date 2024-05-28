@@ -12,22 +12,28 @@ const Navbar = () => {
           </Link>
           <div className="my-auto flex flex-row space-x-4">
             <Link
+              href="/player"
+              className="font-sans text-base font-medium text-black"
+            >
+              Player
+            </Link>
+            <Link
+              href="/town"
+              className="font-sans text-base font-medium text-black"
+            >
+              Town
+            </Link>
+            <Link
+              href="/nation"
+              className="font-sans text-base font-medium text-black"
+            >
+              Nation
+            </Link>
+            <Link
               href="/leaderboard"
               className="font-sans text-base font-medium text-black"
             >
               Leaderboard
-            </Link>
-            <Link
-              href="/players"
-              className="font-sans text-base font-medium text-black"
-            >
-              Players
-            </Link>
-            <Link
-              href="/towny"
-              className="font-sans text-base font-medium text-black"
-            >
-              Towny
             </Link>
           </div>
         </div>

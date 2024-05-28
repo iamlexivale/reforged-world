@@ -11,7 +11,7 @@ const Page = () => {
   const pathArray = pathname.split("/").filter(Boolean);
 
   const { data } = useSWR(
-    `https://api.reforged.world/v1/player/${pathArray[1]}`,
+    `https://api.reforged.world/v1/guild/${pathArray[1]}`,
     fetcher,
   );
 
