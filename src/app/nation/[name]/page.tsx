@@ -11,15 +11,21 @@ const Page = () => {
   const pathArray = pathname.split("/").filter(Boolean);
 
   const { data } = useSWR(
-    `https://api.reforged.world/v1/guild/${pathArray[1]}`,
+    `https://api.reforged.world/v1/nation/${pathArray[1]}`,
     fetcher,
   );
 
   return (
-    <div>
-      <div className="container mx-auto">{pathArray[1]}</div>
-      <br />
-      <div className="container mx-auto">{JSON.stringify(data)}</div>
+    <div className="container mx-auto">
+      <div className="mx-auto flex w-5/6 flex-col border">
+        <div>
+          <div>Name: {data?.nation?.name}</div>
+          <div>Capital: {data?.nation?.capital}</div>
+        </div>
+      </div>
+      <div className="font-mono text-xs font-light italic text-neutral-400">
+        {JSON.stringify(data?.request)}
+      </div>
     </div>
   );
 };
