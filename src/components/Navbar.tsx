@@ -1,44 +1,106 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
+} from "@headlessui/react";
+import { Bars3Icon } from "@heroicons/react/24/solid";
+import { Fragment } from "react";
 
 const Navbar = () => {
+  const pathname = usePathname();
+
+  const links = [
+    { href: "/", label: "Home" },
+    { href: "/player", label: "Player" },
+    { href: "/town", label: "Town" },
+    { href: "/nation", label: "Nation" },
+    { href: "/leaderboard", label: "Leaderboard" },
+  ];
+
   return (
-    <div className="bg-white">
-      <div className="container mx-auto">
-        <div className="flex flex-row justify-between py-4">
-          <Link href="/" className="font-sans text-2xl font-medium text-black">
-            Reforged World
-          </Link>
-          <div className="my-auto flex flex-row space-x-4">
+    <header className="fixed z-10 w-full bg-transparent">
+      <div className="mx-auto flex justify-between px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+        <Link
+          href="/"
+          className="my-auto font-sans text-2xl font-medium text-white"
+        >
+          Reforged
+          <span className="hidden font-sans text-sm font-light text-white opacity-60 md:inline">
+            {" "}
+            by Arknesia
+          </span>
+        </Link>
+
+        {/* mobile */}
+        <div className="flex md:hidden">
+          <Menu as="div" className="relative">
+            {({ open }) => (
+              <>
+                <MenuButton className="flex items-center justify-center p-4 text-black focus:outline-none">
+                  <Bars3Icon className="h-6 w-6 text-white" />
+                </MenuButton>
+                {open && (
+                  <div className="fixed inset-0 z-10 bg-black bg-opacity-50"></div>
+                )}
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-300"
+                  enterFrom="transform translate-x-full opacity-0"
+                  enterTo="transform translate-x-0 opacity-100"
+                  leave="transition ease-in duration-200"
+                  leaveFrom="transform translate-x-0 opacity-100"
+                  leaveTo="transform translate-x-full opacity-0"
+                >
+                  <MenuItems className="fixed right-0 top-0 z-20 flex h-full w-64 flex-col bg-white py-2 shadow-lg">
+                    {links.map((link) => (
+                      <MenuItem key={link.href}>
+                        {({ isActive }: any) => (
+                          <Link
+                            href={link.href}
+                            className={`block px-4 py-2 font-sans text-base font-medium text-black ${
+                              pathname === link.href
+                                ? "bg-neutral-50"
+                                : isActive
+                                  ? "bg-neutral-50"
+                                  : "hover:bg-neutral-50"
+                            }`}
+                          >
+                            {link.label}
+                          </Link>
+                        )}
+                      </MenuItem>
+                    ))}
+                  </MenuItems>
+                </Transition>
+              </>
+            )}
+          </Menu>
+        </div>
+
+        {/* desktop */}
+        <div className="hidden md:flex md:items-center">
+          {links.map((link, index) => (
             <Link
-              href="/player"
-              className="font-sans text-base font-medium text-black"
+              key={index}
+              href={link.href}
+              className={
+                pathname === link.href
+                  ? "p-4 font-sans text-base font-bold text-white"
+                  : "p-4 font-sans text-base font-medium text-white"
+              }
             >
-              Player
+              {link.label}
             </Link>
-            <Link
-              href="/town"
-              className="font-sans text-base font-medium text-black"
-            >
-              Town
-            </Link>
-            <Link
-              href="/nation"
-              className="font-sans text-base font-medium text-black"
-            >
-              Nation
-            </Link>
-            <Link
-              href="/leaderboard"
-              className="font-sans text-base font-medium text-black"
-            >
-              Leaderboard
-            </Link>
-          </div>
+          ))}
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

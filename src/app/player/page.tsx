@@ -32,8 +32,8 @@ const Page = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="flex justify-center py-16">
+    <div className="h-screen bg-slate-900">
+      <div className="container mx-auto flex justify-center py-16">
         <form onSubmit={handleSearchSubmit} className="flex space-x-2">
           <input
             type="text"

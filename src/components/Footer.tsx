@@ -2,20 +2,20 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="bg-white">
-      <div className="container mx-auto">
-        <div className="flex flex-row justify-center space-x-4 py-8">
+    <div className="absolute bottom-0 z-10 w-full bg-transparent">
+      <div className="container mx-auto flex flex-col space-y-4 py-8">
+        <div className="flex flex-row justify-center space-x-4">
           <Link
             href="/"
-            className="font-sans text-sm font-normal text-neutral-600 hover:cursor-pointer hover:text-black"
+            className="font-sans text-sm font-normal text-white opacity-60 hover:cursor-pointer hover:text-white"
           >
-            Reforged World
+            <span className="hidden md:inline">Reforged</span> World
           </Link>
           <a
             href="https://trakteer.id/reforgedworld"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sans text-sm font-normal text-neutral-600 hover:cursor-pointer hover:text-black"
+            className="font-sans text-sm font-normal text-white opacity-60 hover:cursor-pointer hover:text-white"
           >
             Trakteer
           </a>
@@ -23,17 +23,27 @@ const Footer = () => {
             href="https://wiki.reforged.world/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sans text-sm font-normal text-neutral-600 hover:cursor-pointer hover:text-black"
+            className="font-sans text-sm font-normal text-white opacity-60 hover:cursor-pointer hover:text-white"
           >
-            Reforged Wiki
+            <span className="hidden md:inline">Reforged</span> Wiki
           </a>
           <a
             href="https://docs.reforged.world/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sans text-sm font-normal text-neutral-600 hover:cursor-pointer hover:text-black"
+            className="font-sans text-sm font-normal text-white opacity-60 hover:cursor-pointer hover:text-white"
           >
-            Reforged Docs
+            <span className="hidden md:inline">Reforged</span> Docs
+          </a>
+        </div>
+        <div className="text-center font-sans text-sm font-normal text-white opacity-60">
+          <span className="hidden md:inline">Reforged</span> Powered by{" "}
+          <a
+            href="https://www.arknesia.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Arknesia
           </a>
         </div>
       </div>

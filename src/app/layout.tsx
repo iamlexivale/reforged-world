@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Video from "@/components/Video";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,7 @@ interface Props {
 }
 
 export const metadata: Metadata = {
-  title: "Reforged World",
+  title: "Reforged",
   description: "Where Every Block Tells a Story",
 };
 
@@ -23,9 +24,12 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        {children}
-        <Footer />
+        <div className="relative h-screen overflow-hidden">
+          <Navbar />
+          <Video />
+          {children}
+          <Footer />
+        </div>
         <Analytics />
         <SpeedInsights />
       </body>

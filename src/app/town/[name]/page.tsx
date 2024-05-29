@@ -16,8 +16,8 @@ const Page = () => {
   );
 
   return (
-    <div className="container mx-auto">
-      <div className="mx-auto flex w-5/6 flex-col border">
+    <div className="h-screen bg-slate-900">
+      <div className="container mx-auto flex w-5/6 flex-col border pt-14">
         <div>
           <div>Name: {data?.town?.name}</div>
           <div>Mayor: {data?.town?.mayor}</div>
