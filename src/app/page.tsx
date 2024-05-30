@@ -30,7 +30,7 @@ const Home = () => {
               navigator.clipboard.writeText("play.reforged.world");
               alert("Copied to clipboard");
             }}
-            className="cursor-pointer rounded border border-white bg-transparent px-8 py-1 text-center font-sans text-base font-medium text-white"
+            className="cursor-pointer rounded-sm border border-white bg-transparent px-8 py-1 text-center font-sans text-base font-medium text-white"
           >
             play.reforged.world
           </div>

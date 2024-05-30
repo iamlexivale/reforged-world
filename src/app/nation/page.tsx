@@ -28,53 +28,49 @@ const Page = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="flex justify-center py-16">
-        <form onSubmit={handleSearchSubmit} className="flex space-x-2">
-          <input
-            type="text"
-            className="w-96 border"
-            placeholder="Enter a nation name..."
-            value={search}
-            onChange={handleSearchChange}
-          />
-          <button
-            type="submit"
-            className="rounded bg-blue-500 px-4 py-2 text-white"
-          >
-            Search
-          </button>
-        </form>
-      </div>
-
-      <div className="flex flex-col items-center space-y-4">
-        <div className="font-sans text-base font-medium text-black">
-          Latest Nations
-        </div>
-        <div className="w-96 space-y-2">
-          {modifiedData?.nations.map((data: any, index: any) => (
-            <Link
-              href={`/nation/${data.name}`}
-              key={index}
-              className="flex flex-row justify-between rounded border border-neutral-200 px-4 py-1 hover:cursor-pointer hover:border-neutral-400"
-            >
-              <div className="font-sans text-base font-medium text-black">
-                {data?.name}
-              </div>
-              <div>
-                <div className="text-right font-sans text-xs font-light text-neutral-400">
-                  Capital
-                </div>
-                <div className="text-right font-sans text-xs font-medium text-black">
-                  {data?.capital}
-                </div>
-              </div>
-            </Link>
-          ))}
+    <div className="h-screen bg-slate-900 pt-14">
+      <div className="container mx-auto flex flex-col justify-center space-y-8 py-16">
+        <div className="space-y-4">
+          <div className="text-center font-sans text-2xl font-bold antialiased">
+            <div className="bg-gradient-to-r from-fuchsia-600 via-red-500 to-purple-600 bg-clip-text text-transparent">
+              Enter a Nation Name
+            </div>
+          </div>
+          <form onSubmit={handleSearchSubmit} className="flex justify-center">
+            <input
+              type="text"
+              className="w-96 border-2 border-slate-800 bg-slate-950 px-4 py-1 text-white focus:outline-none"
+              value={search}
+              onChange={handleSearchChange}
+            />
+          </form>
         </div>
 
-        <div className="font-mono text-xs font-light italic text-neutral-400">
-          {JSON.stringify(modifiedData?.request)}
+        <div className="flex flex-col items-center space-y-4">
+          <div className="font-sans text-base font-medium text-white">
+            Latest Nations
+          </div>
+          <div className="w-max space-y-2">
+            {modifiedData?.nations.map((data: any, index: any) => (
+              <Link
+                href={`/nation/${data.name}`}
+                key={index}
+                className="flex flex-row justify-between space-x-32 rounded-sm border border-slate-800 px-4 py-1 hover:cursor-pointer hover:border-slate-700"
+              >
+                <div className="my-auto font-sans text-base font-medium text-white">
+                  {data?.name}
+                </div>
+                <div>
+                  <div className="text-right font-sans text-xs font-light text-white text-opacity-60">
+                    Capital
+                  </div>
+                  <div className="text-right font-sans text-xs font-medium text-white">
+                    {data?.capital}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>
