@@ -17,21 +17,18 @@ const Navbar = () => {
 
   const links = [
     { href: "/", label: "Home" },
-    { href: "/player", label: "Player" },
-    { href: "/town", label: "Town" },
-    { href: "/nation", label: "Nation" },
-    { href: "/leaderboard", label: "Leaderboard" },
+    { href: "/stats", label: "Stats" },
   ];
 
   return (
-    <header className="fixed z-10 w-full bg-transparent">
+    <header className="fixed z-20 w-full bg-transparent">
       <div className="mx-auto flex justify-between px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
         <Link
           href="/"
           className="my-auto font-sans text-2xl font-medium text-white"
         >
           Reforged
-          <span className="hidden font-sans text-sm font-light text-white opacity-60 md:inline">
+          <span className="font-sans text-sm font-light text-white opacity-60">
             {" "}
             by Arknesia
           </span>
@@ -42,11 +39,11 @@ const Navbar = () => {
           <Menu as="div" className="relative">
             {({ open }) => (
               <>
-                <MenuButton className="flex items-center justify-center p-4 text-black focus:outline-none">
+                <MenuButton className="flex items-center justify-center bg-transparent py-4 pl-4 text-black focus:outline-none">
                   <Bars3Icon className="h-6 w-6 text-white" />
                 </MenuButton>
                 {open && (
-                  <div className="fixed inset-0 z-10 bg-black bg-opacity-50"></div>
+                  <div className="fixed inset-0 z-10 bg-black bg-opacity-50" />
                 )}
                 <Transition
                   as={Fragment}
@@ -57,19 +54,13 @@ const Navbar = () => {
                   leaveFrom="transform translate-x-0 opacity-100"
                   leaveTo="transform translate-x-full opacity-0"
                 >
-                  <MenuItems className="fixed right-0 top-0 z-20 flex h-full w-64 flex-col bg-white py-2 shadow-lg">
+                  <MenuItems className="fixed right-0 top-0 z-20 flex h-full w-48 flex-col bg-slate-900 py-2 shadow-lg">
                     {links.map((link) => (
                       <MenuItem key={link.href}>
                         {({ isActive }: any) => (
                           <Link
                             href={link.href}
-                            className={`block px-4 py-2 font-sans text-base font-medium text-black ${
-                              pathname === link.href
-                                ? "bg-neutral-50"
-                                : isActive
-                                  ? "bg-neutral-50"
-                                  : "hover:bg-neutral-50"
-                            }`}
+                            className="block bg-slate-900 px-4 py-2 font-sans text-base font-medium text-white"
                           >
                             {link.label}
                           </Link>
