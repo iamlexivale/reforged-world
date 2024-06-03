@@ -16,16 +16,9 @@ const Page = () => {
   );
 
   return (
-    <div className="h-screen bg-slate-900">
-      <div className="container mx-auto flex w-5/6 flex-col border pt-14">
-        <div>
-          <div>Name: {data?.town?.name}</div>
-          <div>Mayor: {data?.town?.mayor}</div>
-          <div>Nation: {data?.town?.nation}</div>
-        </div>
-      </div>
-      <div className="font-mono text-xs font-light italic text-neutral-400">
-        {JSON.stringify(data?.request)}
+    <div className="h-screen bg-slate-900 pt-14">
+      <div className="mx-auto flex justify-between px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+        <div className="text-white">{JSON.stringify(data)}</div>
       </div>
     </div>
   );
