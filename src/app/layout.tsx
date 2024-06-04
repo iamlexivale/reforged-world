@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const metadata: Metadata = {
-  title: "Reforged",
+  title: "Reforged, the Minecraft SMP",
   description: "Where Every Block Tells a Story",
 };
 

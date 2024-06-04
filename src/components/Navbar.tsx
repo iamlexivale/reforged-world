@@ -16,8 +16,14 @@ const Navbar = () => {
   const pathname = usePathname();
 
   const links = [
-    { href: "/", label: "Home" },
+    { href: "/", label: "World" },
     { href: "/stats", label: "Stats" },
+  ];
+
+  const hyperLinks = [
+    { href: "https://trakteer.id/reforgedworld", label: "Trakteer" },
+    { href: "https://wiki.reforged.world", label: "Wiki" },
+    { href: "https://docs.reforged.world", label: "Docs" },
   ];
 
   return (
@@ -29,8 +35,7 @@ const Navbar = () => {
         >
           Reforged
           <span className="font-sans text-sm font-light text-white opacity-60">
-            {" "}
-            by Arknesia
+            , the Minecraft SMP
           </span>
         </Link>
 
@@ -67,6 +72,17 @@ const Navbar = () => {
                         )}
                       </MenuItem>
                     ))}
+                    {hyperLinks.map((link, index) => (
+                      <a
+                        key={index}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-4 font-sans text-base font-medium text-white"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
                   </MenuItems>
                 </Transition>
               </>
@@ -88,6 +104,17 @@ const Navbar = () => {
             >
               {link.label}
             </Link>
+          ))}
+          {hyperLinks.map((link, index) => (
+            <a
+              key={index}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 font-sans text-base font-medium text-white"
+            >
+              {link.label}
+            </a>
           ))}
         </div>
       </div>
