@@ -2,6 +2,7 @@
 
 import useSWR from "swr";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 
@@ -28,7 +29,7 @@ const Home = () => {
           <div
             onClick={() => {
               navigator.clipboard.writeText("play.reforged.world");
-              alert("Copied to clipboard");
+              toast("Copied to clipboard");
             }}
             className="cursor-pointer rounded-sm border border-white bg-transparent px-8 py-1 text-center font-sans text-base font-medium text-white"
           >

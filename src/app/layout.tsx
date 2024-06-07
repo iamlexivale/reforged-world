@@ -1,9 +1,11 @@
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ToastContainer } from "react-toastify";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -30,6 +32,7 @@ export default function RootLayout({ children }: Props) {
           {children}
           <Footer />
         </div>
+        <ToastContainer />
         <Analytics />
         <SpeedInsights />
       </body>
