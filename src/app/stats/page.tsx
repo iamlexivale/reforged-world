@@ -14,6 +14,10 @@ const Table = ({ name1, name2, name3, data }: any) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
+  if (!data || data.length === 0) {
+    return <div className="text-white">Please wait...</div>;
+  }
+
   const handleNextPage = () => {
     if (currentPage * itemsPerPage < data.length) {
       setCurrentPage(currentPage + 1);
