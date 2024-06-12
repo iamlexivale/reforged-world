@@ -34,7 +34,7 @@ const Navbar = () => {
           className="my-auto font-sans text-2xl font-medium text-white"
         >
           Reforged
-          <span className="font-sans text-sm font-light text-white opacity-60">
+          <span className="font-sans text-sm font-light text-white opacity-75">
             , the Minecraft SMP
           </span>
         </Link>
