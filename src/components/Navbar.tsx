@@ -9,7 +9,10 @@ import {
   MenuItems,
   Transition,
 } from "@headlessui/react";
-import { Bars3Icon } from "@heroicons/react/24/solid";
+import {
+  ArrowTopRightOnSquareIcon,
+  Bars3Icon,
+} from "@heroicons/react/24/solid";
 import { Fragment } from "react";
 
 const Navbar = () => {
@@ -17,7 +20,7 @@ const Navbar = () => {
 
   const links = [
     { href: "/", label: "World" },
-    { href: "/stats", label: "Stats" },
+    { href: "/server/information", label: "Information" },
   ];
 
   const hyperLinks = [
@@ -65,7 +68,7 @@ const Navbar = () => {
                         {({ isActive }: any) => (
                           <Link
                             href={link.href}
-                            className="block bg-slate-900 px-4 py-2 font-sans text-base font-medium text-white"
+                            className="block bg-slate-900 p-4 font-sans text-base font-medium text-white"
                           >
                             {link.label}
                           </Link>
@@ -80,7 +83,10 @@ const Navbar = () => {
                         rel="noopener noreferrer"
                         className="p-4 font-sans text-base font-medium text-white"
                       >
-                        {link.label}
+                        <div className="flex flex-row space-x-2">
+                          <span>{link.label}</span>
+                          <ArrowTopRightOnSquareIcon className="h-3 w-3 text-white" />
+                        </div>
                       </a>
                     ))}
                   </MenuItems>
@@ -113,7 +119,10 @@ const Navbar = () => {
               rel="noopener noreferrer"
               className="p-4 font-sans text-base font-medium text-white"
             >
-              {link.label}
+              <div className="flex flex-row space-x-2">
+                <span>{link.label}</span>
+                <ArrowTopRightOnSquareIcon className="h-3 w-3 text-white" />
+              </div>
             </a>
           ))}
         </div>

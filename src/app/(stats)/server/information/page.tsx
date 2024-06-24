@@ -5,7 +5,7 @@ import axios from "axios";
 
 const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 
-const Information = () => {
+const Page = () => {
   const { data: players } = useSWR(
     "https://api.reforged.world/v1/network",
     fetcher,
@@ -23,4 +23,4 @@ const Information = () => {
   );
 };
 
-export default Information;
+export default Page;
