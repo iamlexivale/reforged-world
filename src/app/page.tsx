@@ -7,21 +7,6 @@ import React from "react";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-const CopyToClipboardButton = ({
-  text,
-  onCopy,
-}: {
-  text: string;
-  onCopy: () => void;
-}) => (
-  <div
-    onClick={onCopy}
-    className="cursor-pointer rounded bg-slate-800 px-8 py-1.5 text-center font-sans text-base font-medium text-white shadow shadow-slate-900 hover:bg-slate-900"
-  >
-    {text}
-  </div>
-);
-
 const Home = () => {
   const { data } = useSWR("https://api.reforged.world/v1/network", fetcher);
 
@@ -56,10 +41,12 @@ const Home = () => {
           {data?.network?.players_registered || 0} players have joined...
         </div>
         <div className="flex flex-row justify-center">
-          <CopyToClipboardButton
-            text="play.reforged.world"
-            onCopy={handleCopy}
-          />
+          <div
+            onClick={handleCopy}
+            className="cursor-pointer rounded bg-slate-800 px-8 py-1.5 text-center font-sans text-base font-medium text-white shadow shadow-slate-900 hover:bg-slate-900"
+          >
+            play.reforged.world
+          </div>
         </div>
       </div>
     </div>
