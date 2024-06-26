@@ -3,11 +3,14 @@
 import { useState } from "react";
 import useSWR from "swr";
 import axios from "axios";
-import Link from "next/link";
+// import PlayerGroup from "@/components/PlayerGroup";
+import { useRouter } from "next/navigation";
 
 const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 
-const StatsTown = () => {
+const Page = () => {
+  const router = useRouter();
+
   const { data: towns } = useSWR(
     "https://api.reforged.world/v1/towns",
     fetcher,
@@ -29,37 +32,41 @@ const StatsTown = () => {
   );
 
   return (
-    <div>
+    <>
       <table className="w-full table-auto border border-slate-800">
         <thead className="bg-slate-900">
           <tr>
-            <th className="px-8 py-2 text-left font-sans text-sm font-medium text-white opacity-75">
+            <th className="py-2 pl-8 text-center font-sans text-sm font-medium text-white opacity-75">
               No
             </th>
-            <th className="px-8 py-2 text-left font-sans text-sm font-medium text-white opacity-75">
-              Name
+            <th className="py-2 pl-8 text-left font-sans text-sm font-medium text-white opacity-75">
+              Town
             </th>
-            <th className="px-8 py-2 text-left font-sans text-sm font-medium text-white opacity-75">
+            <th className="py-2 pl-8 text-left font-sans text-sm font-medium text-white opacity-75">
               Mayor
             </th>
-            <th className="px-8 py-2 text-left font-sans text-sm font-medium text-white opacity-75">
+            <th className="py-2 pl-8 text-left font-sans text-sm font-medium text-white opacity-75">
               Nation
             </th>
           </tr>
         </thead>
         <tbody>
           {paginatedTowns?.map((value: any, index: any) => (
-            <tr key={index + 1 + (page - 1) * itemsPerPage}>
-              <td className="px-8 py-1 text-left font-sans text-sm font-normal text-white">
-                {index + 1 + (page - 1) * itemsPerPage}
+            <tr
+              key={index + 1 + (page - 1) * itemsPerPage}
+              className="hover:cursor-pointer hover:bg-slate-800"
+              onClick={() => router.push(`/stats/town/${value?.name}`)}
+            >
+              <td className="w-0 py-2 pl-8 text-center font-sans text-sm font-normal text-white">
+                {index + 1 + (page - 1) * itemsPerPage}.
               </td>
-              <td className="px-8 py-1 text-left font-sans text-sm font-normal text-white">
-                <Link href={`/stats/town/${value?.name}`}>{value?.name}</Link>
+              <td className="py-2 pl-8 text-left font-sans text-sm font-normal text-white">
+                {value?.name}
               </td>
-              <td className="px-8 py-1 text-left font-sans text-sm font-normal text-white">
+              <td className="py-2 pl-8 text-left font-sans text-sm font-normal text-white">
                 {value?.mayor}
               </td>
-              <td className="px-8 py-1 text-left font-sans text-sm font-normal text-white">
+              <td className="py-2 pl-8 text-left font-sans text-sm font-normal text-white">
                 {value?.nation}
               </td>
             </tr>
@@ -68,25 +75,25 @@ const StatsTown = () => {
       </table>
       <div className="mt-4 flex items-center justify-between">
         <button
-          className="bg-slate-700 px-4 py-2 text-sm font-medium text-white hover:bg-slate-600 disabled:opacity-50"
+          className="rounded bg-slate-800 px-4 py-1 font-sans text-sm font-normal text-white hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() => handlePageChange(page - 1)}
           disabled={page === 1}
         >
-          Previous
+          Sebelumnya
         </button>
-        <span className="text-sm font-medium text-white">
-          Page {page} of {totalPages}
+        <span className="font-sans text-sm font-normal text-white opacity-50">
+          Halaman {page} dari {totalPages}
         </span>
         <button
-          className="bg-slate-700 px-4 py-2 text-sm font-medium text-white hover:bg-slate-600 disabled:opacity-50"
+          className="rounded bg-slate-800 px-4 py-1 font-sans text-sm font-normal text-white hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() => handlePageChange(page + 1)}
           disabled={page === totalPages}
         >
-          Next
+          Berikutnya
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
-export default StatsTown;
+export default Page;

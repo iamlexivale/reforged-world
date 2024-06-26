@@ -3,11 +3,41 @@
 import useSWR from "swr";
 import axios from "axios";
 import { toast } from "react-toastify";
+import React from "react";
 
-const fetcher = (url: any) => axios.get(url).then((res) => res.data);
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
+const CopyToClipboardButton = ({
+  text,
+  onCopy,
+}: {
+  text: string;
+  onCopy: () => void;
+}) => (
+  <div
+    onClick={onCopy}
+    className="cursor-pointer rounded bg-slate-800 px-8 py-1.5 text-center font-sans text-base font-medium text-white shadow shadow-slate-900 hover:bg-slate-900"
+  >
+    {text}
+  </div>
+);
 
 const Home = () => {
   const { data } = useSWR("https://api.reforged.world/v1/network", fetcher);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText("play.reforged.world");
+    toast("Copied to clipboard", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
 
   return (
     <div className="relative space-y-8 py-32 md:mt-14">
@@ -26,24 +56,10 @@ const Home = () => {
           {data?.network?.players_registered || 0} players have joined...
         </div>
         <div className="flex flex-row justify-center">
-          <div
-            onClick={() => {
-              navigator.clipboard.writeText("play.reforged.world");
-              toast("Copied to clipboard", {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: false,
-                progress: undefined,
-                theme: "dark",
-              });
-            }}
-            className="cursor-pointer rounded bg-slate-800 px-8 py-1.5 text-center font-sans text-base font-medium text-white shadow shadow-slate-900 hover:bg-slate-900"
-          >
-            play.reforged.world
-          </div>
+          <CopyToClipboardButton
+            text="play.reforged.world"
+            onCopy={handleCopy}
+          />
         </div>
       </div>
     </div>

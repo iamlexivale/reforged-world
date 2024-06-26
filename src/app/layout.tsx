@@ -1,8 +1,8 @@
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ToastContainer } from "react-toastify";
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   description: "Where Every Block Tells a Story",
 };
 
-export default function RootLayout({ children }: Props) {
+const RootLayout: React.FC<Props> = ({ children }) => {
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -38,4 +38,6 @@ export default function RootLayout({ children }: Props) {
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
