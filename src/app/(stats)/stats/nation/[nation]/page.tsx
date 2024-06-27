@@ -25,7 +25,7 @@ const Page = () => {
       >
         BACK TO NATION LIST
       </div>
-      <div className="rounded border border-white border-opacity-30 p-4">
+      <div className="border border-slate-800 bg-slate-900 p-4">
         <div>Name: {nations?.nation?.name}</div>
         <div>Capital: {nations?.nation?.capital}</div>
         <div>Tag: {nations?.nation?.tag}</div>

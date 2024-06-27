@@ -26,7 +26,7 @@ const Page = () => {
       >
         BACK TO PLAYER LIST
       </div>
-      <div className="space-y-4 rounded border border-white border-opacity-30 p-4">
+      <div className="space-y-4 border border-slate-800 bg-slate-900 p-4">
         <div>
           <div>
             <PlayerGroup primaryGroup={players?.player?.primary_group} />{" "}
@@ -38,7 +38,7 @@ const Page = () => {
           {players?.player?.profiles?.map((profile: any) => (
             <div
               key={profile.uuid}
-              className="col-span-1 rounded border border-white border-opacity-30 p-4 hover:cursor-pointer hover:bg-slate-900"
+              className="col-span-1 border border-slate-800 bg-slate-800 p-4 hover:cursor-pointer"
               onClick={() =>
                 router.push(`/stats/player/${playerName}/${profile.uuid}`)
               }

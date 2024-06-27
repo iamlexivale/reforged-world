@@ -25,7 +25,7 @@ const Page = () => {
       >
         BACK TO TOWN LIST
       </div>
-      <div className="rounded border border-white border-opacity-30 p-4">
+      <div className="border border-slate-800 bg-slate-900 p-4">
         <div>Name: {towns?.town?.name}</div>
         <div>Mayor: {towns?.town?.mayor}</div>
         <div>Nation: {towns?.town?.nation}</div>

@@ -75,7 +75,7 @@ const Page = () => {
       </table>
       <div className="mt-4 flex items-center justify-between">
         <button
-          className="rounded bg-slate-800 px-4 py-1 font-sans text-sm font-normal text-white hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-slate-800 px-4 py-1 font-sans text-sm font-normal text-white hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() => handlePageChange(page - 1)}
           disabled={page === 1}
         >
@@ -85,7 +85,7 @@ const Page = () => {
           Halaman {page} dari {totalPages}
         </span>
         <button
-          className="rounded bg-slate-800 px-4 py-1 font-sans text-sm font-normal text-white hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-slate-800 px-4 py-1 font-sans text-sm font-normal text-white hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() => handlePageChange(page + 1)}
           disabled={page === totalPages}
         >

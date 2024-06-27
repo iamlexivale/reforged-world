@@ -13,7 +13,7 @@ const Page = () => {
 
   return (
     <div className="grid grid-cols-3 gap-8">
-      <div className="col-span-1 flex flex-col rounded border border-white border-opacity-30 p-4">
+      <div className="col-span-1 flex flex-col border border-slate-800 bg-slate-900 p-4">
         <div className="font-sans text-2xl font-bold text-white">
           {network?.network?.players_online}
         </div>
@@ -21,7 +21,7 @@ const Page = () => {
           Players Online
         </div>
       </div>
-      <div className="col-span-1 flex flex-col rounded border border-white border-opacity-30 p-4">
+      <div className="col-span-1 flex flex-col border border-slate-800 bg-slate-900 p-4">
         <div className="font-sans text-2xl font-bold text-white">
           {network?.network?.players_registered}
         </div>
@@ -29,7 +29,7 @@ const Page = () => {
           Players Registered
         </div>
       </div>
-      <div className="col-span-1 flex flex-col rounded border border-white border-opacity-30 p-4">
+      <div className="col-span-1 flex flex-col border border-slate-800 bg-slate-900 p-4">
         <div className="font-sans text-2xl font-bold text-white">?</div>
         <div className="font-sans text-base font-medium text-white">
           Profiles Registered

@@ -27,7 +27,7 @@ const Page = () => {
       >
         BACK TO {playerName.toUpperCase()}
       </div>
-      <div className="space-y-4 rounded border border-white border-opacity-30 p-4">
+      <div className="space-y-4 border border-slate-800 bg-slate-900 p-4">
         <div className="flex flex-col">
           <div>{players?.player?.profile?.name}</div>
           <div>{players?.player?.profile?.class}</div>
