@@ -15,8 +15,7 @@ const Page = () => {
       router.push("/login");
     } else {
       axios
-        // .get(`${process.env.NEXT_PUBLIC_API_URL}/v1/dashboard`, {
-        .get("http://localhost:5000/v1/dashboard", {
+        .get("https://api.reforged.world/v1/dashboard", {
           headers: { token },
         })
         .then((response) => {

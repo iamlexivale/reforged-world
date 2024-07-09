@@ -14,14 +14,10 @@ const Page = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        // `${process.env.NEXT_PUBLIC_API_URL}/login`,
-        `http://localhost:5000/login`,
-        {
-          username,
-          password,
-        },
-      );
+      const response = await axios.post(`https://api.reforged.world/v1/login`, {
+        username,
+        password,
+      });
       Cookies.set("token", response.data.accessToken, { expires: 7 });
       router.push("/dashboard");
     } catch (err) {
