@@ -11,6 +11,11 @@ const Page = () => {
     fetcher,
   );
 
+  const { data: dashboard } = useSWR(
+    "http://localhost:5000/v1/dashboard",
+    fetcher,
+  );
+
   return (
     <div className="grid grid-cols-3 gap-8">
       <div className="col-span-1 flex flex-col border border-slate-800 bg-slate-900 p-4">
@@ -35,6 +40,7 @@ const Page = () => {
           Profiles Registered
         </div>
       </div>
+      <>{dashboard}</>
     </div>
   );
 };
