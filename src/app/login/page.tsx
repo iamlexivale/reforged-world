@@ -12,19 +12,44 @@ const Page = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const token = Cookies.get("token");
-    if (token) {
-      router.push("/dashboard");
-    }
+    const verifyToken = async () => {
+      const token = Cookies.get("token");
+      if (token) {
+        try {
+          const response = await axios.post(
+            `https://api.reforged.world/auth/verify`,
+            {},
+            {
+              headers: {
+                token: token,
+              },
+            },
+          );
+          if (response.data.valid) {
+            router.push("/dashboard");
+          } else {
+            Cookies.remove("token");
+          }
+        } catch (err) {
+          console.error("Token verification failed:", err);
+          Cookies.remove("token");
+        }
+      }
+    };
+
+    verifyToken();
   }, [router]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`https://api.reforged.world/v1/login`, {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        `https://api.reforged.world/auth/login`,
+        {
+          username,
+          password,
+        },
+      );
       Cookies.set("token", response.data.accessToken, { expires: 7 });
       router.push("/dashboard");
     } catch (err) {
