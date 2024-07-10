@@ -39,7 +39,7 @@ const Page = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      await axios.post(
+      await axios.put(
         "https://api.reforged.world/admin/players/update-password",
         {
           nickname: dataEdit?.NICKNAME,
