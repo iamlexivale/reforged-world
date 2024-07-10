@@ -12,6 +12,7 @@ const fetcher = (url: any, token: any) =>
 
 const Page = () => {
   const dataCookies = useData();
+
   const { data: players, mutate } = useSWR(
     "https://api.reforged.world/admin/players",
     (url) => fetcher(url, dataCookies),
