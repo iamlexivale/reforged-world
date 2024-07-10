@@ -98,7 +98,7 @@ const Layout = ({ children }: any) => {
               Logout
             </div>
             <div className="p-4 font-sans text-xs font-bold text-white opacity-50 ">
-              Logged in as <span className="underline">{data.signature}</span>
+              Logged in as <span className="underline">{data}</span>
             </div>
           </div>
           <div className="w-full">{children}</div>

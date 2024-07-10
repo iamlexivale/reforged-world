@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useSWR from "swr";
 import axios from "axios";
 import { useData } from "@/components/DataContext";
@@ -8,96 +8,94 @@ import { useData } from "@/components/DataContext";
 const fetcher = (url: any, token: any) =>
   axios.get(url, { headers: { token: token } }).then((res) => res.data);
 
+const customOrder = [
+  "admin",
+  "mod",
+  "helper",
+  "media",
+  "mvp",
+  "vip2",
+  "vip1",
+  "vip",
+  "default",
+];
+
+const displayNames = {
+  admin: "Seneschal",
+  mod: "Guardian",
+  helper: "Apprentice",
+  media: "Lorekeeper",
+  mvp: "MVP",
+  vip2: "VIP++",
+  vip1: "VIP+",
+  vip: "VIP",
+  default: "Peasant",
+};
+
+const initializeGroupCounts = () => {
+  const initialCounts: { [key: string]: number } = {};
+  customOrder.forEach((group) => {
+    initialCounts[group] = 0;
+  });
+  return initialCounts;
+};
+
 const Page = () => {
   const dataCookies = useData();
 
-  const { data: players } = useSWR(
-    "https://api.reforged.world/admin/players",
+  const { data: players, error } = useSWR(
+    "https://api.reforged.world/admin/dashboard",
     (url) => fetcher(url, dataCookies),
   );
 
-  const [page, setPage] = useState(1);
-  const itemsPerPage = 10;
-  const totalPages = Math.ceil((players?.data?.length || 0) / itemsPerPage);
+  const [groupCounts, setGroupCounts] = useState<any>(initializeGroupCounts);
 
-  const handlePageChange = (newPage: number) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setPage(newPage);
+  useEffect(() => {
+    if (players) {
+      const counts = players.data.reduce((acc: any, player: any) => {
+        acc[player.primary_group] = (acc[player.primary_group] || 0) + 1;
+        return acc;
+      }, initializeGroupCounts());
+      setGroupCounts(counts);
     }
-  };
+  }, [players]);
 
-  const paginatedPlayers = players?.data?.slice(
-    (page - 1) * itemsPerPage,
-    page * itemsPerPage,
-  );
+  if (error) return <div>Failed to load</div>;
+  if (!players) return <div>Loading...</div>;
+
+  const tableRows = customOrder.map((group, index) => (
+    <tr key={group} className="border-b border-slate-800">
+      <td className="px-4 py-2 text-center">{index + 1}</td>
+      <td className="px-4 py-2 text-left">
+        {displayNames[group as keyof typeof displayNames] || group}
+      </td>
+      <td className="px-4 py-2 text-center">{groupCounts[group]}</td>
+    </tr>
+  ));
 
   return (
-    <>
-      <table className="w-full table-auto border border-slate-800">
-        <thead className="bg-slate-900">
-          <tr>
-            <th className="py-2 pl-8 text-center font-sans text-sm font-medium text-white opacity-75">
-              No
-            </th>
-            <th className="py-2 pl-8 text-left font-sans text-sm font-medium text-white opacity-75">
-              Player
-            </th>
-            <th className="py-2 pl-8 text-left font-sans text-sm font-medium text-white opacity-75">
-              UUID
-            </th>
-            <th className="py-2 pl-8 text-left font-sans text-sm font-medium text-white opacity-75">
-              Group
-            </th>
-            <th className="py-2 pl-8 text-left font-sans text-sm font-medium text-white opacity-75">
-              Action
-            </th>
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-slate-900 text-white">
+        <thead>
+          <tr className="border-b border-slate-800">
+            <th className="px-4 py-2 text-center">NO</th>
+            <th className="px-4 py-2 text-left">GROUP</th>
+            <th className="px-4 py-2 text-center">COUNT</th>
           </tr>
         </thead>
         <tbody>
-          {paginatedPlayers?.map((value: any, index: any) => (
-            <tr
-              key={index + 1 + (page - 1) * itemsPerPage}
-              className="hover:bg-slate-800"
-            >
-              <td className="w-0 py-2 pl-8 text-center font-sans text-sm font-normal text-white">
-                {index + 1 + (page - 1) * itemsPerPage}.
-              </td>
-              <td className="py-2 pl-8 text-left font-sans text-sm font-normal text-white">
-                {value?.username}
-              </td>
-              <td className="py-2 pl-8 text-left font-sans text-sm font-normal text-white">
-                {value?.uuid}
-              </td>
-              <td className="py-2 pl-8 text-left font-sans text-sm font-normal text-white">
-                {value?.primary_group}
-              </td>
-              <td className="py-2 pl-8 text-left font-sans text-sm font-normal text-white">
-                Edit | Delete
+          {tableRows.length > 0 ? (
+            tableRows
+          ) : (
+            <tr>
+              <td colSpan={3} className="px-4 py-2 text-center">
+                No data available
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
-      <div className="mt-4 flex items-center justify-between">
-        <button
-          className="bg-slate-800 px-4 py-1 font-sans text-sm font-normal text-white hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
-          onClick={() => handlePageChange(page - 1)}
-          disabled={page === 1}
-        >
-          Sebelumnya
-        </button>
-        <span className="font-sans text-sm font-normal text-white opacity-50">
-          Halaman {page} dari {totalPages}
-        </span>
-        <button
-          className="bg-slate-800 px-4 py-1 font-sans text-sm font-normal text-white hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
-          onClick={() => handlePageChange(page + 1)}
-          disabled={page === totalPages}
-        >
-          Berikutnya
-        </button>
-      </div>
-    </>
+    </div>
   );
 };
 
