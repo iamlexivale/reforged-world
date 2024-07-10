@@ -4,6 +4,7 @@ import { useState, Fragment } from "react";
 import useSWR from "swr";
 import axios from "axios";
 import { Dialog, Transition } from "@headlessui/react";
+import { toast } from "react-toastify";
 import { useData } from "@/components/DataContext";
 
 const fetcher = (url: any, token: any) =>
@@ -11,21 +12,16 @@ const fetcher = (url: any, token: any) =>
 
 const Page = () => {
   const dataCookies = useData();
-  const {
-    data: players,
-    error,
-    mutate,
-  } = useSWR("https://api.reforged.world/admin/players", (url) =>
-    fetcher(url, dataCookies),
+  const { data: players, mutate } = useSWR(
+    "https://api.reforged.world/admin/players",
+    (url) => fetcher(url, dataCookies),
   );
 
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [newPlayer, setNewPlayer] = useState({
-    NICKNAME: "",
-  });
-
+  const [changePass, setChangePass] = useState<any>();
+  const [dataEdit, setDataEdit] = useState<any>();
   const itemsPerPage = 10;
 
   const filteredPlayers = players?.data?.filter((player: any) =>
@@ -40,21 +36,42 @@ const Page = () => {
     }
   };
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setNewPlayer((prev) => ({ ...prev, [name]: value }));
-  };
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      await axios.post("https://api.reforged.world/admin/players", newPlayer, {
-        headers: { token: dataCookies },
+      await axios.post(
+        "https://api.reforged.world/admin/players/update-password",
+        {
+          nickname: dataEdit?.NICKNAME,
+          newPassword: changePass,
+        },
+        {
+          headers: { token: dataCookies },
+        },
+      );
+      mutate();
+      setIsOpen(false);
+      toast("Berhasil Merubah Password", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "dark",
       });
-      mutate(); // re-fetch the players data
-      closeModal(); // close the modal
     } catch (error) {
-      console.error("Failed to create player", error);
+      toast("Gagal Merubah Password", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
@@ -63,29 +80,24 @@ const Page = () => {
     page * itemsPerPage,
   );
 
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
-
   return (
     <>
-      <div className="mb-4 flex justify-end space-x-4">
+      <div className="mb-4 flex justify-end">
         <input
           type="text"
           placeholder="Search Player"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="rounded border border-slate-800 bg-slate-900 px-2 font-sans text-sm font-normal text-white focus:outline-none"
+          className="rounded border border-slate-800 bg-slate-900 px-2 py-1 font-sans text-sm font-normal text-white focus:outline-none"
         />
-        <div
-          className="cursor-pointer bg-slate-800 px-4 py-1 font-sans text-sm font-normal text-white hover:bg-slate-900"
-          onClick={openModal}
-        >
-          Create Account
-        </div>
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog
+          as="div"
+          className="relative z-50"
+          onClose={() => setIsOpen(false)}
+        >
           <Transition.Child
             as={Fragment}
             enter="transform transition ease-in-out duration-300"
@@ -99,7 +111,7 @@ const Page = () => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-end p-4 text-center">
+            <div className="flex min-h-full items-center justify-end text-center">
               <Transition.Child
                 as={Fragment}
                 enter="transform transition ease-in-out duration-300"
@@ -109,40 +121,63 @@ const Page = () => {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-slate-800 p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="h-screen w-1/3 transform overflow-hidden bg-slate-900 p-12 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-white"
                   >
-                    Create New Player
+                    Edit Password
                   </Dialog.Title>
-                  <form onSubmit={handleSubmit} className="mt-4">
-                    <div className="mb-4">
+                  <form onSubmit={handleSubmit} className="mt-12 space-y-6">
+                    <div className="space-y-2">
                       <label className="block font-sans text-sm font-medium text-white">
-                        Nickname:
+                        Account
+                      </label>
+                      <div className="space-y-4 border border-slate-700 bg-slate-800 p-4 text-white">
+                        <div>
+                          <div className="font-sans text-sm font-light text-white opacity-50">
+                            Player
+                          </div>
+                          <div className="font-sans text-sm font-medium text-white">
+                            {dataEdit?.NICKNAME}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-sans text-sm font-light text-white opacity-50">
+                            IP Address
+                          </div>
+                          <div className="font-sans text-sm font-medium text-white">
+                            {dataEdit?.IP}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="">
+                      <label className="block font-sans text-sm font-medium text-white">
+                        Password
                       </label>
                       <input
-                        type="text"
-                        name="NICKNAME"
-                        value={newPlayer.NICKNAME}
-                        onChange={handleChange}
-                        className="mt-1 w-full rounded border border-slate-800 px-2 py-1 text-black"
+                        type="password"
+                        name="Password"
+                        value={changePass}
+                        onChange={(e) => setChangePass(e.target.value)}
+                        className="mt-1 w-full border border-slate-700 bg-slate-800 px-2 py-1 font-sans text-sm font-medium text-white focus:outline-none"
                         required
                       />
                     </div>
-                    <div className="mt-4">
+                    <div className="space-x-4">
                       <button
                         type="submit"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
+                        className="bg-slate-800 px-4 py-1 font-sans text-sm font-normal text-white hover:bg-slate-950 disabled:cursor-not-allowed disabled:opacity-50"
                       >
-                        Save
+                        Ganti Password
                       </button>
                       <button
                         type="button"
-                        className="ml-2 inline-flex justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
-                        onClick={closeModal}
+                        className="bg-slate-800 px-4 py-1 font-sans text-sm font-normal text-white hover:bg-slate-950 disabled:cursor-not-allowed disabled:opacity-50"
+                        onClick={() => setIsOpen(false)}
                       >
-                        Cancel
+                        Batal
                       </button>
                     </div>
                   </form>
@@ -168,7 +203,7 @@ const Page = () => {
             <th className="py-2 pl-8 text-left font-sans text-sm font-medium text-white opacity-75">
               IP Address
             </th>
-            <th className="py-2 pl-8 text-left font-sans text-sm font-medium text-white opacity-75">
+            <th className="py-2 pl-8 text-center font-sans text-sm font-medium text-white opacity-75">
               Action
             </th>
           </tr>
@@ -191,8 +226,16 @@ const Page = () => {
               <td className="py-2 pl-8 text-left font-sans text-sm font-normal text-white">
                 {value?.IP}
               </td>
-              <td className="py-2 pl-8 text-left font-sans text-sm font-normal text-white">
-                Edit | Delete
+              <td className="py-2 pl-8 text-center font-sans text-sm font-normal text-white">
+                <div
+                  onClick={() => {
+                    setIsOpen(true);
+                    setDataEdit(value);
+                  }}
+                  className="text-blue-500 hover:cursor-pointer hover:underline"
+                >
+                  Edit
+                </div>
               </td>
             </tr>
           ))}
